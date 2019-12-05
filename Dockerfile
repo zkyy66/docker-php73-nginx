@@ -34,6 +34,10 @@ RUN apt-get update \
         zlib1g-dev \
     && docker-php-ext-install \
         bcmath gd pdo_mysql mbstring sockets zip sysvmsg sysvsem sysvshm
+##安装composer
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && composer self-update --clean-backups
 ##安装redis扩展
 RUN wget http://pecl.php.net/get/redis-${PHPREDIS_VERSION}.tgz -O /tmp/redis.tar.tgz \
     && pecl install /tmp/redis.tar.tgz \
